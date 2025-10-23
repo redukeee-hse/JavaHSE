@@ -1,14 +1,17 @@
 package bank;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class BankAccount {
+public class BankAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
     private double balance;
     private int accountNumber;
     private Transaction[] transactions;
     private int transactionCount;
 
-    public class Transaction {
+    public class Transaction implements Serializable {
+        private static final long serialVersionUID = 1L;
         private double amount;
         LocalDateTime timestamp;
         private String type;
