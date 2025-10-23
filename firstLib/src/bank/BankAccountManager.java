@@ -97,10 +97,18 @@ public class BankAccountManager {
                             double withdrawAmount = scanner.nextDouble();
                             account.withdraw(withdrawAmount);
                             break;
-                        case 3: // check balance
+                        case 3:
+                            System.out.print("Enter transfer amount: "); 
+                            double transferAmount = scanner.nextDouble();
+                            bankAccountManager.printSortedAccounts(accounts);
+                            System.out.print("Enter account to transfer: "); 
+                            int accountNum = scanner.nextInt();
+                            account.accountTransfer(bankAccountManager.findAccountByNumber(accountNum, accounts), transferAmount);
+                            break;
+                        case 4: // check balance
                             System.out.println("\nCurrent balance: " + account.getBalance());
                             break;
-                        case 4:
+                        case 5:
                             menuPrinter.printTransactionMenu();
                             switch (scanner.nextInt()) {
                                 case 1:
@@ -124,7 +132,7 @@ public class BankAccountManager {
                                     break;
                             }
                             break;
-                        case 5:
+                        case 6:
                             System.out.println("\nExiting...\n");
                             return;
 

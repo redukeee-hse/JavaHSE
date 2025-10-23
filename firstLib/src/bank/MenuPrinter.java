@@ -14,9 +14,10 @@ public class MenuPrinter {
     public void printAccountMenu() {
         System.out.println("\n1. Deposit");
         System.out.println("2. Withdraw");
-        System.out.println("3. Check Balance");
-        System.out.println("4. View Transactions");
-        System.out.println("5. Exit");
+        System.out.println("3. Transfer");
+        System.out.println("4. Check Balance");
+        System.out.println("5. View Transactions");
+        System.out.println("6. Exit");
         System.out.print("\nChoose an option: ");
     }
 

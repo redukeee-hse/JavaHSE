@@ -60,6 +60,10 @@ public class BankAccount implements Serializable {
         return balance;
     }
 
+    private void changeAnotherBalance(double amount) {
+        this.balance += amount;
+    }
+
     public void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
@@ -103,13 +107,30 @@ public class BankAccount implements Serializable {
         return accountNumber;
     }
 
+    public void accountTransfer(BankAccount targetBankAccount, double amount) {
+        if (amount > 0 && amount <= this.balance) {
+            balance -= amount;
+            targetBankAccount.changeAnotherBalance(amount);
+
+            addTransaction(amount, String.format("transfer from %d to %d", this.accountNumber, targetBankAccount.accountNumber));
+            targetBankAccount.addTransaction(amount, String.format("transferred from %d", this.getAccountNumber()));
+            
+            System.out.println("\nTransfer: " + amount + "\n");
+        }
+        else {
+            System.out.println("\nInvalid transfer amount.");
+            if (amount > balance) {
+                System.out.println("Insufficient funds.\n");
+            }
+            else {
+                System.out.println("Amount must be positive Integer.\n");
+            }
+        }
+    }
+
     public Transaction[] getTransactions() {
         Transaction[] currentTransactions = new Transaction[transactionCount];
         System.arraycopy(transactions, 0, currentTransactions, 0, transactionCount);
         return currentTransactions;
     }
-
-    
-
-
 }
