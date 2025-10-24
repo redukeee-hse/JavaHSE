@@ -108,7 +108,7 @@ public class BankAccount implements Serializable {
     }
 
     public void accountTransfer(BankAccount targetBankAccount, double amount) {
-        if (amount > 0 && amount <= this.balance) {
+        if (amount > 0 && amount <= this.balance && targetBankAccount != this) {
             balance -= amount;
             targetBankAccount.changeAnotherBalance(amount);
 
@@ -116,8 +116,9 @@ public class BankAccount implements Serializable {
             targetBankAccount.addTransaction(amount, String.format("transferred from %d", this.getAccountNumber()));
             
             System.out.println("\nTransfer: " + amount + "\n");
-        }
-        else {
+        } else if (targetBankAccount == this) {
+            System.out.println("You cant transfer to the same account");
+        } else {
             System.out.println("\nInvalid transfer amount.");
             if (amount > balance) {
                 System.out.println("Insufficient funds.\n");

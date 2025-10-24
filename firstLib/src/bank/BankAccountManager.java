@@ -83,8 +83,7 @@ public class BankAccountManager {
                                 if (!scanner.hasNextDouble()) {
                                     throw new Exception("Invalid deposit amount.");
                                 }
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 System.out.println("Error: " + e.getMessage());
                                 scanner.next();
                                 break;
@@ -94,6 +93,15 @@ public class BankAccountManager {
                             break;
                         case 2:
                             System.out.print("\nEnter withdrawal amount: ");
+                            try {
+                                if (!scanner.hasNextDouble()) {
+                                    throw new Exception("Invalid withdrawal amount.");
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Error: " + e.getMessage());
+                                scanner.next();
+                                break;
+                            }
                             double withdrawAmount = scanner.nextDouble();
                             account.withdraw(withdrawAmount);
                             break;
@@ -105,22 +113,19 @@ public class BankAccountManager {
                             int accountNum = scanner.nextInt();
                             account.accountTransfer(bankAccountManager.findAccountByNumber(accountNum, accounts), transferAmount);
                             break;
-                        case 4: // check balance
+                        case 4: 
                             System.out.println("\nCurrent balance: " + account.getBalance());
                             break;
                         case 5:
                             menuPrinter.printTransactionMenu();
                             switch (scanner.nextInt()) {
                                 case 1:
-                                    // by amount
                                     bankAccountManager.printSortedTransactionsByAmount(account);
                                     break;
                                 case 2:
-                                    // by date
                                     bankAccountManager.printSortedTransactionsByDate(account);
                                     break;
                                 case 3:
-                                    // by type
                                     bankAccountManager.printSortedTransactionsByType(account);
                                     break;
                                 case 4:
