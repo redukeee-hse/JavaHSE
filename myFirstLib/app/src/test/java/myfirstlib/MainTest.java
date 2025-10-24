@@ -2,6 +2,8 @@ package myfirstlib;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,12 +31,16 @@ public class MainTest {
 
     @Test
     public void whenCreateNewUserThenUserSavedInFile() {
-        String fileName = "users.ser";
+        String fileName = "testUsers.ser";
         HashMap<String, User> users = new HashMap<>();
         users.put("testUser", new User("testUser", "password"));
         SerializationHelper.saveUsersToFile(users, fileName);
         HashMap<String, User> loadedUsers = SerializationHelper.loadUsersFromFile(fileName);
         assertNotNull(loadedUsers.get("testUser"));
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
